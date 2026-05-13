@@ -3,6 +3,7 @@
 Replicates the Linux desktop experience on Windows 10/11:
 
 - **`Win + N`** → Switch to Nth virtual desktop (workspace)
+- **`Win + Shift + N`** → Move active window to Nth virtual desktop (workspace)
 - **`Win + Shift + Q`** → Close the active window
 
 ## Prerequisites
@@ -14,59 +15,7 @@ Replicates the Linux desktop experience on Windows 10/11:
 ## Setup
 
 ### 1. AutoHotkey Script
-
-Save as `virtual-desktops.ahk`:
-
-```ahk
-#Requires AutoHotkey v2.0
-#SingleInstance Force
-
-; Re-launch as admin if not already elevated
-if !A_IsAdmin {
-    Run '*RunAs "' A_ScriptFullPath '"'
-    ExitApp
-}
-
-; Load the DLL (put VirtualDesktopAccessor.dll next to this script)
-hVDA := DllCall("LoadLibrary",
-    "Str", A_ScriptDir "\VirtualDesktopAccessor.dll", "Ptr")
-
-GoToDesktop(num) {
-    DllCall(A_ScriptDir "\VirtualDesktopAccessor.dll\GoToDesktopNumber",
-        "Int", num)
-}
-
-MoveWindow(num) {
-    hwnd := WinGetID("A")
-    DllCall(A_ScriptDir "\VirtualDesktopAccessor.dll\MoveWindowToDesktopNumber",
-        "Ptr", hwnd, "Int", num)
-}
-
-; Win + Shift + 1..9 → move active window to desktop N
-#+1::MoveWindow(0)
-#+2::MoveWindow(1)
-#+3::MoveWindow(2)
-#+4::MoveWindow(3)
-#+5::MoveWindow(4)
-#+6::MoveWindow(5)
-#+7::MoveWindow(6)
-#+8::MoveWindow(7)
-#+9::MoveWindow(8)
-
-; Win + Shift + Q → close active window
-#+q::WinClose("A")
-
-; Win + 1..9 → switch to desktop (0-indexed)
-#1::GoToDesktop(0)
-#2::GoToDesktop(1)
-#3::GoToDesktop(2)
-#4::GoToDesktop(3)
-#5::GoToDesktop(4)
-#6::GoToDesktop(5)
-#7::GoToDesktop(6)
-#8::GoToDesktop(7)
-#9::GoToDesktop(8)
-```
+Download [virtual-desktops.ahk](./virtual-desktops.ahk)
 
 ### 2. Auto-start on Boot (with Admin Privileges)
 
@@ -193,7 +142,3 @@ To restore default animations:
   `regedit`.
 - The `HKEY_LOCAL_MACHINE\...\DWM\DisallowAnimations` key can be deleted
   or set to `0`.
-
-## License
-
-Do whatever you want with this. No warranty.
