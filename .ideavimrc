@@ -20,6 +20,7 @@ set smartcase
 set clipboard+=unnamed
 set clipboard+=ideaput
 
+
 "" Map random actions
 noremap <Leader>r :action RenameElement<CR>
 noremap <leader>t :action Refactorings.QuickListPopupAction<CR>
@@ -41,7 +42,7 @@ noremap <leader>X :action UnsplitAll<CR>
 
 ""
 "" -- Togglable paste mode
-"" 
+""
 let g:paste_no_overwrite = 1
 
 function! TogglePasteMode()
@@ -71,7 +72,7 @@ noremap <leader>c :action ToggleRenderedDocPresentation<CR>
 noremap <leader>C :action ToggleRenderedDocPresentationForAll<CR>
 
 ""
-"" --- Layout shenanigance (IDE context) --- 
+"" --- Layout shenanigance (IDE context) ---
 ""
 
 " Save current split/file layout
@@ -145,7 +146,7 @@ function! ReselectSurvivingForComment()
   if !exists('g:last_sel') || empty(g:last_sel)
     echo "No saved selection" | return
   endif
-  
+
   let first = g:last_sel.start
   let gtotal = g:last_sel.total
   let total = line('$')
@@ -176,3 +177,20 @@ endfunction
 xnoremap <silent> <leader>ms :<C-u>call SaveLastSelection()<CR>
 xnoremap <silent> <leader>mr :<C-u>call ReselectSurviving()<CR>
 xnoremap <silent> <leader>ps "+y:<C-u>call WrapAsSuggestion()<CR>:call SaveLastSelection()<CR>:call ReselectSurviving()<CR>:action Vcs.RollbackChangedLines<CR>:call ReselectSurvivingForComment()<CR>:action Code.Review.Editor.New.Comment<CR>
+
+""
+"" --- Fuzzy find / project search (parity with Neovim config) ---
+""
+
+" <leader><leader> -> Search Everywhere (matches Neovim Telescope find_files)
+noremap <leader><leader> :action SearchEverywhere<CR>
+
+" <leader>F -> Find in Files (matches Neovim Telescope live_grep)
+noremap <leader>F :action FindInPath<CR>
+
+""
+"" --- Reflow (gq) ---
+""
+set textwidth=80
+set formatoptions+=q,c,r,o,n
+set comments=s1:/*,mb:*,ex:*/,://,:///,:#
