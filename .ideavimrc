@@ -106,7 +106,7 @@ noremap <Leader>qe :action ShowErrorDescription<CR>
 ""
 "" --- VCS ---
 ""
-noremap <Leader>vr :action Vcs.RollbackChangedLines<CR>
+noremap <Leader>vr :action Vcs.RollbackChangedLines<CR> 
 noremap <Leader>vb :action Annotate)
 
 ""
@@ -190,7 +190,7 @@ noremap <leader>F :action FindInPath<CR>
 
 ""
 "" --- Reflow (gq) ---
-""
-set textwidth=80
-set formatoptions+=q,c,r,o,n
-set comments=s1:/*,mb:*,ex:*/,://,:///,:#
+"" IdeaVim's gq delegates to IntelliJ's reformatter and ignores
+"" formatoptions/textwidth/comments
+"" Install the "Wrap to Column" plugin and map gq to it
+xnoremap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
