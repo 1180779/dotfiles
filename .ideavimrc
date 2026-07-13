@@ -27,6 +27,12 @@ noremap <leader>t :action Refactorings.QuickListPopupAction<CR>
 noremap <leader>q :action CloseContent<CR>
 noremap <leader>g :action GotoDeclaration<CR>
 noremap <leader>f :action ReformatCode<CR>
+noremap <leader>i :action SwitchHeaderSource<CR>
+noremap <C-M-i> :action SwitchHeaderSource<CR>
+
+"" Map wrap sth
+"" Wrap word under cursor in <tt> </tt> (Doxygen @c equivalent)
+nnoremap <leader>wc ciw<tt><C-r>"</tt><Esc>
 
 "" Map debugger actions
 noremap <leader>n :action ConfigurationXDebuggerResumeAction<CR>
